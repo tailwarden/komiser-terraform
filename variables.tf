@@ -13,7 +13,6 @@ variable "instance_type" {
 variable "key" {
   type        = string
   description = "SSH key pair"
-  default     = "oraculi"
 }
 
 variable "owner" {
@@ -45,5 +44,4 @@ variable "domain_name" {
 variable "hosted_zone_id" {
   type        = string
   description = "Route53 zone ID"
-
 }

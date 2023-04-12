@@ -13,7 +13,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "komiser" {
-  ami                         = data.amazon_linux.id
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = var.instance_type
   key_name                    = var.key
   associate_public_ip_address = true
@@ -49,7 +49,7 @@ resource "aws_instance" "komiser" {
   }
 
   provisioner "remote-exec" {
-    inline = ["bash /tmp/install.sh", "sudo docker-compose -f /home/ec2-user/docker-compose.yml up -d"]
+    inline = ["bash /tmp/install.sh", "docker-compose -f /home/ec2-user/docker-compose.yml up -d"]
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_security_group" "komiser_sg" {
     from_port   = "22"
     to_port     = "22"
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] // restrict with your CIDR or use a bastion host
   }
 
   ingress {

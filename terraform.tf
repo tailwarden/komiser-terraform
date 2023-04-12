@@ -1,11 +1,11 @@
 terraform {
   backend "s3" {
-    bucket = "oraculi-terraform-states"
+    bucket = "YOUR BUCKET"
     key    = "komiser"
-    region = "eu-central-1"
+    region = "YOUR REGION"
   }
 }
 
 provider "aws" {
-  region  = var.region
+  region = var.region
 }
