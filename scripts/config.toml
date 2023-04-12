@@ -1,0 +1,6 @@
+[[aws]]
+  name = "Demo"
+  source = "ENVIRONMENT_VARIABLES"
+
+[sqlite]
+  file = "/usr/bin/komiser.db"
