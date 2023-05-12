@@ -13,7 +13,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "komiser" {
-  ami                         = "data.aws_ami.amazon_linux.id"
+  ami                         = data.aws_ami.amazon_linux.id
   instance_type               = var.instance_type
   key_name                    = var.key
   associate_public_ip_address = true
