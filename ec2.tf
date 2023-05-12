@@ -13,43 +13,17 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "komiser" {
-  ami                         = data.aws_ami.amazon_linux.id
+  ami                         = "ami-03aefa83246f44ef2"
   instance_type               = var.instance_type
   key_name                    = var.key
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.komiser_sg.id]
   iam_instance_profile        = aws_iam_instance_profile.komiser_instance_profile.name
-  //user_data = file("scripts/install.sh")
+  user_data = file("scripts/install.sh")
 
   tags = {
     Name  = "komiser"
     Owner = var.owner
-  }
-
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = file(var.private_key_path)
-    host        = self.public_ip
-  }
-
-  provisioner "file" {
-    source      = "scripts/config.toml"
-    destination = "/home/ec2-user/config.toml"
-  }
-
-  provisioner "file" {
-    source      = "scripts/docker-compose.yml"
-    destination = "/home/ec2-user/docker-compose.yml"
-  }
-
-  provisioner "file" {
-    source      = "scripts/install.sh"
-    destination = "/tmp/install.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = ["bash /tmp/install.sh", "docker-compose -f /home/ec2-user/docker-compose.yml up -d"]
   }
 }
 

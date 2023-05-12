@@ -1,0 +1,2 @@
+[komiser]
+IP ansible_user=USER ansible_ssh_private_key_file=PATH_TO_PRIVATE_KEY
