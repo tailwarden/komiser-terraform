@@ -1,5 +1,5 @@
 [[aws]]
-  name = "ACCOUNT_NAME"
+  name = "Demo"
   source = "ENVIRONMENT_VARIABLES"
 
 [sqlite]
