@@ -1,0 +1,27 @@
+- name: Upload files to remote_machine
+  hosts: komiser
+  become: true
+  tasks:
+    - name: Upload config files
+      copy:
+        src: scripts/config.toml
+        dest: /home/ec2-user/config.toml
+        owner: ec2-user
+        group: ec2-user
+        mode: "0644"
+
+    - name: Upload docker-compose files
+      copy:
+        src: scripts/docker-compose.yml
+        dest: /home/ec2-user/docker-compose.yml
+        owner: ec2-user
+        group: ec2-user
+        mode: "0644"
+      
+    - name: ensure Docker is running
+      service:
+        name: docker
+        state: started
+
+    - name: Run Komiser as a docker container
+      command: "docker-compose -f /home/ec2-user/docker-compose.yml up -d"
